@@ -18,7 +18,7 @@ public class ShowRepository {
     }
 
     public void setShow (int index, Show show) {
-        showList.add(index, show);
+        showList.set(index, show);
     }
 
     public void removeShowIfFound(Show show) {

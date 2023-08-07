@@ -1,10 +1,5 @@
 package com.ltp.workbook.Controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -15,33 +10,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ltp.workbook.Constants;
 import com.ltp.workbook.Show;
-import com.ltp.workbook.Repository.ShowRepository;
+import com.ltp.workbook.Service.ShowService;
 
 
 @Controller
 public class WorkbookController {
     
-    ShowRepository showList= new ShowRepository();
+    ShowService showService= new ShowService();
 
     //GetMappings
     @GetMapping("/shows")
     public String getShows(Model model) {
-    model.addAttribute("shows_list", showList); 
+    model.addAttribute("shows_list", showService.getShows()); 
         return "shows";
     }
 
     @GetMapping("/showsPortal")
     public String showsPortal(Model model, @RequestParam(required = false) String id) {
-    int index = getShowIndex(id);
-    model.addAttribute("show", index == Constants.NOT_FOUND ? new Show() : showList.getShow(index));
+    model.addAttribute("show", showService.getShowById(id));
         return "showsPortal";   
     }
 
     @GetMapping("/validation")
     public String validation(Model model, @RequestParam(required = true) String id) {
-        model.addAttribute("show", showList.getShow(getShowIndex(id)));
+        model.addAttribute("show", showService.getShow(showService.getShowIndex(id)));
         return "validation";
     }
 
@@ -51,51 +44,29 @@ public class WorkbookController {
     public String addShow(@Valid Show show, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) 
             return "showsPortal";
-            
-        int index = getShowIndex(show.getId());
-        if (index == Constants.NOT_FOUND)
-            showList.addShow(show);
-        else {
-            showList.setShow(index, show);
-        }
+
+        showService.submitShow(show);
+        
         redirectAttributes.addFlashAttribute("flashAttributeShow", show);
         return "redirect:/shows";
     }
 
     @PostMapping("/handleRemove")
     public String removeShow(Show show) {
-       showList.removeShowIfFound(show);
+       showService.removeShowIfFound(show);
        return "redirect:/shows";
     }
 
     @PostMapping("/sortByRating")
     public String sortByRating(Show show) {
-         Collections.sort(showList, new Comparator<Show>() {
-            public int compare (Show s1, Show s2) {
-                return Float.valueOf(s2.getRating()).compareTo(s1.getRating());
-            }
-        });
+        showService.sortByRating();
         return "redirect:/shows";
     }
 
     @PostMapping("/sortByTitle")
     public String sortByTitle(Show show) {
-         Collections.sort(shows_list, new Comparator<Show>() {
-            public int compare (Show s1, Show s2) {
-                return String.valueOf(s1.getTitle()).compareTo(s2.getTitle());
-            }
-        });
+        showService.sortByTitle();
         return "redirect:/shows";
-    }
-
-
-    //Functions
-    public Integer getShowIndex(String Show_id) {
-        for(int i=0; i<showList.listSize(); i++) {
-            if(showList.getShow(i).getId().equals(Show_id)) 
-                return i;
-        }
-        return Constants.NOT_FOUND;
     }
 
 }
