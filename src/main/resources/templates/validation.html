@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>validation</title>
+    </head>
+    <body>
+        <h1>Are you sure you want to remove the following show?</h1>
+
+        <table width="100%", border="solid">
+            <tr>
+              <th>Title</th>
+              <th>Episode</th>
+              <th>Rating</th>
+              <th>id</th>
+            </tr>
+            <tr th:object="${show}">    
+              <td th:text="${show.title}"></td>   
+              <td th:text="${show.episode}"></td> 
+              <td th:text="${show.rating}"></td>
+              <td th:text="${show.id}"></td>
+            </tr>
+          </table>  
+    
+          <form method="post" th:object="${show}" th:action="@{/handleRemove}">  
+            <input type="text"  th:field="*{id}" hidden>
+            <input type="submit" value="Yes">
+          </form>
+          <a role="button" class="update" th:href="@{/shows}">No</a>
+
+    </body>
+</html>

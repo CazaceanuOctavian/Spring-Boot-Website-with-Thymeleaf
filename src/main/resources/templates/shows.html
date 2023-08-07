@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shows</title>
+    </head>
+    <body>
+      <a role="button" class="update" th:href="@{/}">Start Page</a>
+      <a>  |  </a>
+      <a role="button" class="update" th:href="@{/showsPortal}">Form Submission</a>
+
+        <h2>Your show list</h2>
+
+        <p th:unless="${flashAttributeShow?.title == null}" th:text="${flashAttributeShow.title}"></p>
+        <span th:unless="${flashAttributeShow?.title == null}"> has been added succesfully! </span>
+
+        <p></p>
+
+        <p2>Actions: </p2>
+
+        <form method="post" th:object="${show}" th:action="@{/sortByRating}">
+        <input type="submit" value="SortByRating">
+        </form>
+
+        <form method="post" th:object="${show}" th:action="@{/sortByTitle}">
+        <input type="submit" value="SortByTitle">
+        </form>
+
+        <table width="100%", border="solid">
+          <tr>
+            <th>Title</th>
+            <th>Episode</th>
+            <th>Rating</th>
+            <th>Id.</th>
+          </tr>
+          <tr th:each="show: ${shows_list}">    
+            <td th:text="${show.title}"></td>   
+            <td th:text="${show.episode}"></td> 
+            <td th:text="${show.rating}"></td>
+            <td th:text="${show.id}"></td>
+            <td><a role="button" class="update" th:href="@{/showsPortal(id = ${show.id})}">Update</a></td>
+            <td><a role="button" class="update" th:href="@{/validation(id = ${show.id})}">Remove</a></td>
+          </tr>
+        </table>        
+
+    </body>
+</html>

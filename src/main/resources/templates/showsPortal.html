@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Form Submission</title>
+    </head>
+    <body>
+        <h1>Input/Update A Show</h1>
+
+        <form method="post" th:object="${show}" th:action="@{/handleSubmit}"> 
+            <p style="color:red" th:errors="*{title}"></p>  
+            <input type="text" placeholder="Title" th:field="*{title}">
+            <p></p>
+
+            <p style="color:red" th:errors="*{episode}"></p>
+            <input type="text" placeholder="Episode" th:field="*{episode}"> 
+            <p></p>
+            
+            <p style="color:red" th:errors="*{rating}"></p>
+            <input type="text" placeholder="Rating" th:field="*{rating}">
+            <p></p>
+
+            <input type="text"  th:field="*{id}" readonly>
+            <p></p> 
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
