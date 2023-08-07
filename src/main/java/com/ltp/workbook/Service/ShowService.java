@@ -4,13 +4,18 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.ltp.workbook.Constants;
-import com.ltp.workbook.Show;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ltp.workbook.Classes.Constants;
+import com.ltp.workbook.Classes.Show;
 import com.ltp.workbook.Repository.ShowRepository;
 
+@Service
 public class ShowService {
 
-    ShowRepository showRepository = new ShowRepository();
+    @Autowired
+    ShowRepository showRepository;
     
     public Show getShow (int index) {
         return showRepository.getShow(index);

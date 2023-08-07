@@ -3,8 +3,11 @@ package com.ltp.workbook.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ltp.workbook.Show;
+import org.springframework.stereotype.Repository;
 
+import com.ltp.workbook.Classes.Show;
+
+@Repository
 public class ShowRepository {
 
     private List<Show> showList = new ArrayList<Show>();

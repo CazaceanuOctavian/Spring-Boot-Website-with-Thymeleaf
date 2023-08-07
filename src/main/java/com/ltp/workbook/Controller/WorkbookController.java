@@ -2,6 +2,7 @@ package com.ltp.workbook.Controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,16 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ltp.workbook.Show;
+import com.ltp.workbook.Classes.Show;
 import com.ltp.workbook.Service.ShowService;
 
 
 @Controller
 public class WorkbookController {
     
-    ShowService showService= new ShowService();
+    @Autowired
+    ShowService showService;
 
-    //GetMappings
+    //GetRequests
     @GetMapping("/shows")
     public String getShows(Model model) {
     model.addAttribute("shows_list", showService.getShows()); 
@@ -39,14 +41,14 @@ public class WorkbookController {
     }
 
 
-    //PostMappings
+    //PostRequests
     @PostMapping("/handleSubmit")
     public String addShow(@Valid Show show, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) 
             return "showsPortal";
 
         showService.submitShow(show);
-        
+
         redirectAttributes.addFlashAttribute("flashAttributeShow", show);
         return "redirect:/shows";
     }
