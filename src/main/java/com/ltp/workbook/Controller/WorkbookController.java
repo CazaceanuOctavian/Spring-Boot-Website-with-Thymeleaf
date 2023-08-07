@@ -1,4 +1,4 @@
-package com.ltp.workbook;
+package com.ltp.workbook.Controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,31 +15,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ltp.workbook.Constants;
+import com.ltp.workbook.Show;
+import com.ltp.workbook.Repository.ShowRepository;
+
 
 @Controller
 public class WorkbookController {
     
-    //Global 
-    List<Show> shows_list = new ArrayList<Show>();
-
+    ShowRepository showList= new ShowRepository();
 
     //GetMappings
     @GetMapping("/shows")
     public String getShows(Model model) {
-    model.addAttribute("shows_list", shows_list); 
+    model.addAttribute("shows_list", showList); 
         return "shows";
     }
 
     @GetMapping("/showsPortal")
     public String showsPortal(Model model, @RequestParam(required = false) String id) {
     int index = getShowIndex(id);
-    model.addAttribute("show", index == Constants.NOT_FOUND ? new Show() : shows_list.get(index));
+    model.addAttribute("show", index == Constants.NOT_FOUND ? new Show() : showList.getShow(index));
         return "showsPortal";   
     }
 
     @GetMapping("/validation")
     public String validation(Model model, @RequestParam(required = true) String id) {
-        model.addAttribute("show", shows_list.get(getShowIndex(id)));
+        model.addAttribute("show", showList.getShow(getShowIndex(id)));
         return "validation";
     }
 
@@ -52,9 +54,9 @@ public class WorkbookController {
             
         int index = getShowIndex(show.getId());
         if (index == Constants.NOT_FOUND)
-            shows_list.add(show);
+            showList.addShow(show);
         else {
-            shows_list.set(index, show);
+            showList.setShow(index, show);
         }
         redirectAttributes.addFlashAttribute("flashAttributeShow", show);
         return "redirect:/shows";
@@ -62,13 +64,13 @@ public class WorkbookController {
 
     @PostMapping("/handleRemove")
     public String removeShow(Show show) {
-       shows_list.removeIf(n -> (n.getId().equals(show.getId())));
+       showList.removeShowIfFound(show);
        return "redirect:/shows";
     }
 
     @PostMapping("/sortByRating")
     public String sortByRating(Show show) {
-         Collections.sort(shows_list, new Comparator<Show>() {
+         Collections.sort(showList, new Comparator<Show>() {
             public int compare (Show s1, Show s2) {
                 return Float.valueOf(s2.getRating()).compareTo(s1.getRating());
             }
@@ -89,8 +91,8 @@ public class WorkbookController {
 
     //Functions
     public Integer getShowIndex(String Show_id) {
-        for(int i=0; i<shows_list.size(); i++) {
-            if(shows_list.get(i).getId().equals(Show_id)) 
+        for(int i=0; i<showList.listSize(); i++) {
+            if(showList.getShow(i).getId().equals(Show_id)) 
                 return i;
         }
         return Constants.NOT_FOUND;
