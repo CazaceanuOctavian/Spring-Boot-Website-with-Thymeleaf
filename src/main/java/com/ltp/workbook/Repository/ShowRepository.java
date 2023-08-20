@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.ltp.workbook.classes.Show;
+import com.ltp.workbook.model.Show;
 
 @Repository
 public class ShowRepository {

@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.ltp.workbook.classes.Show;
+import com.ltp.workbook.model.Show;
 import com.ltp.workbook.repository.ShowRepository;
 import com.ltp.workbook.service.ShowService;
 

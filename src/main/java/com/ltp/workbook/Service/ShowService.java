@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ltp.workbook.classes.Constants;
-import com.ltp.workbook.classes.Show;
+import com.ltp.workbook.model.Constants;
+import com.ltp.workbook.model.Show;
 import com.ltp.workbook.repository.ShowRepository;
 
 @Service

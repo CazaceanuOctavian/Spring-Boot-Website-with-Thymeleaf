@@ -1,4 +1,4 @@
-package com.ltp.workbook.classes;
+package com.ltp.workbook.model;
 
 import java.util.UUID;
 
