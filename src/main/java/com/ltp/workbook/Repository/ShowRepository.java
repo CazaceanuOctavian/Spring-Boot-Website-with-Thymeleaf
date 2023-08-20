@@ -1,11 +1,11 @@
-package com.ltp.workbook.Repository;
+package com.ltp.workbook.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.ltp.workbook.Classes.Show;
+import com.ltp.workbook.classes.Show;
 
 @Repository
 public class ShowRepository {
