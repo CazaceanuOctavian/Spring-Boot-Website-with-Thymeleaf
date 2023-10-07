@@ -1,4 +1,4 @@
-package com.ltp.workbook.controller;
+package com.ltp.workbook.Controller;
 
 import javax.validation.Valid;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ltp.workbook.model.Show;
-import com.ltp.workbook.service.ShowService;
+import com.ltp.workbook.Service.ShowService;
 
 
 @Controller

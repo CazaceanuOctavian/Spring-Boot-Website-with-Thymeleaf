@@ -13,8 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.ltp.workbook.model.Show;
-import com.ltp.workbook.repository.ShowRepository;
-import com.ltp.workbook.service.ShowService;
+import com.ltp.workbook.Repository.ShowRepository;
+import com.ltp.workbook.Service.ShowService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ShowServiceTest {

@@ -1,4 +1,4 @@
-package com.ltp.workbook.service;
+package com.ltp.workbook.Service;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ltp.workbook.model.Constants;
 import com.ltp.workbook.model.Show;
-import com.ltp.workbook.repository.ShowRepository;
+import com.ltp.workbook.Repository.ShowRepository;
 
 @Service
 public class ShowService {

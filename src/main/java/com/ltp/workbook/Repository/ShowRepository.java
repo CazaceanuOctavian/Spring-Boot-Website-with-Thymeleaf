@@ -1,4 +1,4 @@
-package com.ltp.workbook.repository;
+package com.ltp.workbook.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
